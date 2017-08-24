@@ -1,0 +1,28 @@
+[{
+  "rekos": {
+    "one": {
+      "title": "Kristinehamn",
+      "timestamp": 1459361875666
+    },
+    "two": {
+      "title": "Karlstad",
+      "timestamp": 1459361875665
+    }
+  },
+  "members": {
+    "one": {
+      "jonny banger": true,
+      "alovelace": true,
+      "eclarke": true
+    },
+  "stores": {
+    "one": {
+      "s1": {
+        "name": "eclarke",
+        "description": "The relay seems to be malfunctioning.",
+        "timestamp": 1459361875337
+      }
+    }
+  }
+  }
+}]

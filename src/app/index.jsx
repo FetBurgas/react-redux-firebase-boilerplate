@@ -8,13 +8,13 @@ import ReduxPromise from 'redux-promise';
 import reducers from './reducers';
 import routes from './routes';
 
-import 'bootstrap-social';
+import 'bulma/css/bulma.css'
 
 // for bundling your styles
 import './bundle.scss';
 
-const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
-
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const createStoreWithMiddleware = composeEnhancers(applyMiddleware(ReduxPromise))(createStore);
 
 ReactDOM.render(
     <Provider store={createStoreWithMiddleware(reducers)}>

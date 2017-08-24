@@ -1,0 +1,37 @@
+.login {
+  html,body {
+    height: 100%;
+  }
+
+  .hero-banner .hero {
+    background: url('https://unsplash.it/2000/1000');
+    background-position: center;
+    background-size: cover;
+    background-blend-mode: screen;
+    padding: 0;
+    margin: 0;
+  }
+
+  .hero-banner .title {
+    display: inline-block;
+    background-color: rgba(0,0,0, 0.6);
+    padding: 5px;
+  }
+  .fa-facebook-official {
+    color:#3b5998;
+  }
+  .fa-google-plus-official {
+    color:#d34836;
+  }
+  .fa-twitter {
+    color:#1da1f2;
+  }
+  .box {
+    margin:5%;
+    padding: 5%;
+    text-align: center;
+    .is-grouped {
+      justify-content:space-between;
+    }
+  }
+}

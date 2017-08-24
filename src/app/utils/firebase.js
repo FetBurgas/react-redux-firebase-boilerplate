@@ -7,6 +7,26 @@ export const firebaseDb = firebaseApp.database();
 
 const FireBaseTools = {
 
+    writeRekoData: (userId, name) => {
+        firebaseDb.ref(`rekos/${userId}`).set({
+            title: name,
+        });
+    },
+
+    getRekos: () => {
+        return firebaseDb.ref('rekos').once('value').then(rekos => rekos).catch(error => ({
+            errorCode: error.code,
+            errorMessage: error.message,
+        }));
+    },
+
+    getStore: (id) => {
+        return firebaseDb.ref(`store/${id}`).once('value').then(store => store).catch(error => ({
+            errorCode: error.code,
+            errorMessage: error.message,
+        }));
+    },
+
   /**
    * Return an instance of a firebase auth provider based on the provider string.
    *
@@ -111,7 +131,7 @@ const FireBaseTools = {
    * @returns {!firebase.Promise.<*>|firebase.Thenable<any>|firebase.Promise<any>|!firebase.Thenable.<*>}
    */
     resetPasswordEmail: email => firebaseAuth.sendPasswordResetEmail(email).then(() => ({
-        message: 'Email sent',
+        message: 'Email skickad',
     }), error => ({
         errorCode: error.code,
         errorMessage: error.message,
@@ -134,7 +154,7 @@ const FireBaseTools = {
    * @returns {!firebase.Promise.<*>|firebase.Thenable<any>|firebase.Promise<any>|!firebase.Thenable.<*>}
    */
     sendEmailVerification: () => firebaseAuth.currentUser.sendEmailVerification().then(() => ({
-        message: 'Email sent',
+        message: 'Email skickad',
     }), error => ({
         errorCode: error.code,
         errorMessage: error.message,

@@ -8,9 +8,16 @@ class App extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+          tab: 'profile'
+        }
 
         this.props.fetchUser();
         this.logOut = this.logOut.bind(this);
+        this.tabChange = this.tabChange.bind(this)
+    }
+    tabChange (state) {
+      this.setState({tab: state.active.label})
     }
 
     logOut() {
@@ -24,59 +31,53 @@ class App extends Component {
     // if current user exists and user id exists than make user navigation
         if (currentUser && currentUser.uid) {
             return (
-                <li className="dropdown">
-                    <a
-                      href="#" className="dropdown-toggle" data-toggle="dropdown" role="button"
-                      aria-haspopup="true" aria-expanded="false"
-                    >
-                        {currentUser.email} <span className="caret" /></a>
-                    <ul className="dropdown-menu">
-                        <li><Link to="/profile">Profile</Link></li>
-                        <li role="separator" className="divider" />
-                        <li><Link to="/logout" onClick={this.logOut}>Logout</Link></li>
-                    </ul>
-                </li>
+  <section className="hero is-primary">
+  <div className="hero-head">
+    <nav className="nav has-shadow" id="top">
+    <div className="container">
+      <div className="nav-left">
+        <a className="nav-item" href="/home">
+          <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28"/>
+        </a>
+      </div>
+      <span className="nav-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+      <div className="nav-right nav-menu">
+        <span className="nav-item">
+            <figure className="image is-32x32">
+              <Link className="" to="/user/profile"><img src={currentUser.photoURL}/></Link>
+            </figure>
+        </span>
+        <span className="nav-item">
+            <Link to="/logout" className="is-active" onClick={this.logOut}>Logga ut</Link>
+        </span>
+      </div>
+    </div>
+  </nav>
+  </div>
+  <div className="hero-body">
+    <div className="container has-text-centered">
+      <h1 className="title">
+        {currentUser.displayName}
+      </h1>
+      <h2 className="subtitle">
+        {currentUser.email}
+      </h2>
+    </div>
+  </div>
+</section>
             );
-        } else {
-            return [
-                <li key={1}><Link to="/login">Login</Link></li>,
-                <li key={2}><Link to="/register">Register</Link></li>,
-            ];
         }
     }
 
     render() {
         return (
             <div>
-                <header className="navbar navbar-static-top navbar-inverse" id="top" role="banner">
-                    <div className="container">
-                        <div className="navbar-header">
-                            <button
-                              className="navbar-toggle collapsed" type="button" data-toggle="collapse"
-                              data-target=".bs-navbar-collapse"
-                            ><span className="sr-only">Toggle navigation</span>
-                                <span className="icon-bar" />
-                                <span className="icon-bar" />
-                                <span className="icon-bar" />
-                            </button>
-                            <Link to="/" className="navbar-brand">Firebase & Redux boilerplate</Link>
-
-                        </div>
-                        <nav className="collapse navbar-collapse bs-navbar-collapse" role="navigation">
-                            <ul className="nav navbar-nav">
-                                <li><Link to="/"> Home</Link></li>
-                ,
-              </ul>
-                            <ul className="nav navbar-nav navbar-right">
-                                { this.renderUserMenu(this.props.currentUser) }
-                            </ul>
-                        </nav>
-                    </div>
-                </header>
-
-                <div className="container">
-                    {this.props.children}
-                </div>
+                {this.renderUserMenu(this.props.currentUser)}
+                {this.props.children}
             </div>
         );
     }

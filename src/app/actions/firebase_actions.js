@@ -8,9 +8,27 @@ import {
   CHANGE_FIREBASE_USER_PASSWORD,
   FIREBASE_PASSWORD_RESET_EMAIL,
   LOGOUT_FIREBASE_USER,
+  FETCH_FIREBASE_REKOS,
+  FETCH_FIREBASE_STORE,
 } from './types';
 
+export function getStore(id) {
+    const request = FireBaseTools.getStore(id);
+    return {
+        type: FETCH_FIREBASE_STORE,
+        payload: request,
+    };
+}
 
+export function getRekos() {
+    const request = FireBaseTools.getRekos();
+    return {
+        type: FETCH_FIREBASE_REKOS,
+        payload: request,
+    };
+}
+
+// User and AUTH
 export function loginWithProvider(provider) {
     const request = FireBaseTools.loginWithProvider(provider);
     return {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { changePassword } from '../../actions/firebase_actions';
+import {Button} from 'bulma-components';
 
 class ChangePassword extends Component {
 
@@ -19,14 +20,14 @@ class ChangePassword extends Component {
       let repeatPassword = this.refs.repeatPassword.value;
       if (password !== repeatPassword) {
         this.setState({
-          message: 'Please password must match!',
+          message: 'Lösenorden måste vara lika!',
       });
     } else {
         this.props.changePassword(password).then((data) => {
           if (data.payload.errorCode)
             this.setState({ message: data.payload.errorMessage });
           else
-          this.setState({ message: 'Password was changed!' });
+          this.setState({ message: 'Lösenordet är ändrat!' });
       });
     }
   }
@@ -34,22 +35,27 @@ class ChangePassword extends Component {
     render() {
       return (
       <form id="ChangePassword" role="form" onSubmit={this.onFormSubmit}>
-        <h4> Change Password </h4>
         <h5> {this.state.message} </h5>
-        <div className="form-group">
-          <label htmlFor="password"> New Password: </label>
-          <input type="password" className="form-control"
-            name="password" ref="password" id="password" 
-          />
+        <h2 className="subtitle"> Byt lösenord </h2>
+        <div className="field">
+          <p className="control has-icons-left">
+          <input type="password" className="input" id="password" ref="password" placeholder="Nytt lösenord"
+                name="password"/>
+            <span className="icon is-small is-left">
+              <i className="fa fa-lock"></i>
+            </span>
+          </p>
         </div>
-        <div className="form-group">
-          <label htmlFor="repeatPassword"> Repeat Password: </label>
-          <input type="password" className="form-control"
-            name="repeatPassword" ref="repeatPassword" id="repeatPassword" 
-          />
-
+        <div className="field">
+          <p className="control has-icons-left">
+          <input type="password" className="input" id="repeatPassword" ref="repeatPassword" placeholder="Repetera lösenord"
+                name="repeatPassword"/>
+            <span className="icon is-small is-left">
+              <i className="fa fa-lock"></i>
+            </span>
+          </p>
         </div>
-        <button type="submit" className="btn btn-primary">Change Password</button>
+        <Button type="submit" icon='save' className='is-primary is-medium'>Byt lösenord</Button>
       </form>
     );
   }
