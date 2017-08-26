@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import Orders from './orders';
-import { fetchUser, updateUser, getRekos, getStore } from '../../actions/firebase_actions';
+import StoreProfile from './profile';
+import { fetchUser, updateUser, getRekos, getUserStore } from '../../actions/firebase_actions';
 import firebase from '../../utils/firebase';
 import { Button, Tabs, Icon } from 'bulma-components';
 import Slider from 'react-slick';
@@ -14,13 +15,17 @@ class Store extends Component {
 
     constructor(props) {
         super(props);
-        this.props.getRekos();
-        this.props.fetchUser().then(() => this.props.getStore(this.props.currentUser.uid));
-        
-        this.tabs = ['My Store', 'ProduktMallar', 'Produkter', 'Ordrar']
         this.state = {
             message: '',
+            isLoading: true
         };
+
+        this.props.getRekos();
+        this.props.fetchUser().then(() => this.props.getUserStore(this.props.currentUser.uid)).
+        then(() => this.setState({isLoading: false}))
+        
+        this.tabs = ['My Store', 'ProduktMallar', 'Produkter', 'Ordrar']
+
         this._changeHandler = this._changeHandler.bind(this)
         
     }
@@ -46,10 +51,14 @@ class Store extends Component {
     }
 
     render() {
-        if (!this.props.currentUser) {
+        const {myStore, ...props} = this.props;
+
+        if (!myStore) {
             return <Loading />;
         }
-
+        
+        console.log(this.props.myStore.title);
+        
         var settings = {
             infinite: true,
             speed: 500,
@@ -68,7 +77,7 @@ class Store extends Component {
                     />
                 </div>
                 <Slider ref='slider' {...settings}>
-                    <Orders index={1} />
+                    <StoreProfile myStore={this.props.myStore} />
                     <Orders index={2} />
                     <Orders index={3} />
                     <Orders index={4} />
@@ -79,12 +88,12 @@ class Store extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ fetchUser, getStore, getRekos }, dispatch);
+    return bindActionCreators({ fetchUser, getUserStore, getRekos }, dispatch);
 }
 
 
 function mapStateToProps(state) {
-    return { currentUser: state.currentUser, rekos: state.rekos, store: state.store };
+    return { currentUser: state.currentUser, rekos: state.rekos, myStore: state.myStore };
 }
 
 

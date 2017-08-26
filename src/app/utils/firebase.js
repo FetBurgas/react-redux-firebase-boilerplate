@@ -21,7 +21,7 @@ const FireBaseTools = {
     },
 
     getStore: (id) => {
-        return firebaseDb.ref(`store/${id}`).once('value').then(store => store).catch(error => ({
+        return firebaseDb.ref(`stores/${id}`).once('value').then(mystore => mystore).catch(error => ({
             errorCode: error.code,
             errorMessage: error.message,
         }));

@@ -12,7 +12,7 @@ import {
   FETCH_FIREBASE_STORE,
 } from './types';
 
-export function getStore(id) {
+export function getUserStore(id) {
     const request = FireBaseTools.getStore(id);
     return {
         type: FETCH_FIREBASE_STORE,

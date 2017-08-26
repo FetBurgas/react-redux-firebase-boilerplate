@@ -6,7 +6,7 @@ import StoreReducer from './firebase_store_reducer';
 const rootReducer = combineReducers({
     currentUser: UserReducer,
     rekos: RekoReducer,
-    store: StoreReducer,
+    myStore: StoreReducer,
 });
 
 export default rootReducer;
